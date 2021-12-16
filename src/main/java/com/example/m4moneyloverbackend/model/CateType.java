@@ -18,7 +18,7 @@ public class CateType {
     @ManyToOne(targetEntity = Category.class)
     @JoinColumn(name = "category_id")
     private Category category;
-    @ManyToOne
+    @ManyToOne(targetEntity = Type.class)
     @JoinColumn(name = "type_id")
     private Type type;
 }
