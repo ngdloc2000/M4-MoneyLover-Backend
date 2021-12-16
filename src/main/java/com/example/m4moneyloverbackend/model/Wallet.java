@@ -24,4 +24,6 @@ public class Wallet {
     @OneToMany(targetEntity = Transaction.class, mappedBy = "wallet")
     @JsonBackReference
     private List<Transaction> transactionList;
+
+
 }
