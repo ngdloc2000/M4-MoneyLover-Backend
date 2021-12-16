@@ -16,10 +16,9 @@ public class M4MoneyLoverBackendApplication {
         SpringApplication.run(M4MoneyLoverBackendApplication.class, args);
     }
 
-        @Bean
-        CommandLineRunner run(UserService userService) {
-        return args -> {
-            userService.save(new User(null, "lộc", null, "0123456789", null, "loc", "1", new ArrayList<>()));
-        };
-    }
+//        @Bean
+//        CommandLineRunner run(UserService userService) {
+//        return args -> {
+//            userService.save(new User(null, "lộc", null, "0123456789", null, "loc", "1", new ArrayList<>()));
+//        };
 }
