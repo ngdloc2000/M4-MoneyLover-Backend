@@ -15,10 +15,10 @@ public class CateType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(targetEntity = Category.class)
+    @ManyToOne(targetEntity = Category.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
-    @ManyToOne
+    @ManyToOne(targetEntity = Type.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "type_id")
     private Type type;
 }
