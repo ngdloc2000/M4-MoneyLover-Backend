@@ -1,6 +1,7 @@
 package com.example.m4moneyloverbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,8 @@ public class Wallet {
     @OneToOne
     private User user;
     @OneToMany(targetEntity = Transaction.class, mappedBy = "wallet")
-    @JsonBackReference
+//    @JsonBackReference
+    @JsonIgnore
     private List<Transaction> transactionList;
 
 
