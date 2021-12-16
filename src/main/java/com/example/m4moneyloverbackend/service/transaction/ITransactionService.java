@@ -1,4 +1,7 @@
 package com.example.m4moneyloverbackend.service.transaction;
 
-public interface ITransactionService {
+import com.example.m4moneyloverbackend.model.Transaction;
+import com.example.m4moneyloverbackend.service.IGeneralService;
+
+public interface ITransactionService extends IGeneralService <Transaction>{
 }
