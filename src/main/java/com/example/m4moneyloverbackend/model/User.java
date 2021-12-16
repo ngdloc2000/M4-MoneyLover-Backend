@@ -30,5 +30,5 @@ public class User {
     @JoinTable(name = "users_roles",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
-    private Collection<Role> roles = new ArrayList<>();
+    private Collection<Role> roles;
 }
