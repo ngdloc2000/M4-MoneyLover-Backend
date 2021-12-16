@@ -20,10 +20,12 @@ public class Category {
     private String name;
     private String icon;
 
-    @OneToMany(targetEntity = Transaction.class, fetch = FetchType.LAZY, mappedBy = "category")
+    @OneToMany(targetEntity = Transaction.class, mappedBy = "category")
     @JsonBackReference
     private List<Transaction> transactionList;
-    @OneToMany(mappedBy = "category", targetEntity = CateType.class,fetch = FetchType.LAZY)
+
+    @OneToMany(mappedBy = "category", targetEntity = CateType.class)
+    @JsonBackReference
     private List<CateType> cateTypes;
     
 }
