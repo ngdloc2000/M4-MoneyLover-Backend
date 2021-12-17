@@ -1,7 +1,10 @@
 package com.example.m4moneyloverbackend.controller;
 
 import com.example.m4moneyloverbackend.model.Transaction;
+import com.example.m4moneyloverbackend.model.User;
+import com.example.m4moneyloverbackend.model.Wallet;
 import com.example.m4moneyloverbackend.service.transaction.ITransactionService;
+import com.example.m4moneyloverbackend.service.wallet.IWalletService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -25,6 +29,8 @@ public class TransactionController {
    private Environment environment;
     @Autowired
     private ITransactionService transactionService;
+    @Autowired
+    private IWalletService walletService;
 
     @GetMapping("/{id}")
     public ResponseEntity<Transaction> findById(@PathVariable Long id) {
@@ -69,5 +75,12 @@ public class TransactionController {
     public ResponseEntity<Transaction> removeTransaction(@PathVariable Long id) {
         transactionService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/showAllTransByWalletId/{id}")
+    public ResponseEntity<Iterable<Transaction>> findAllTransactionByWallet(@PathVariable Long id) {
+        Optional<Wallet> wallet = walletService.findByUserId(id);
+        List<Transaction> transactions = (List<Transaction>) transactionService.findAllByWallet(wallet.get().getId());
+        return new ResponseEntity<>(transactions,HttpStatus.OK);
     }
 }
