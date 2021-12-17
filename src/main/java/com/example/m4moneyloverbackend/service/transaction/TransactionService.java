@@ -31,4 +31,9 @@ public class TransactionService implements ITransactionService {
     public Optional<Transaction> findById(Long id) {
         return transactionRepository.findById(id);
     }
+
+    @Override
+    public Iterable<Transaction> findAllByWallet(Long walletId) {
+        return transactionRepository.findAllByWallet(walletId);
+    }
 }

@@ -29,4 +29,9 @@ public class WalletService implements IWalletService{
     public Optional<Wallet> findById(Long id) {
         return walletRepository.findById(id);
     }
+
+    @Override
+    public Optional<Wallet> findByUserId(Long id) {
+        return walletRepository.findByUserId(id);
+    }
 }
