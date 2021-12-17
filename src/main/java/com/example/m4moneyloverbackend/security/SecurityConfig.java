@@ -59,9 +59,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().ignoringAntMatchers("/**");
         http.httpBasic().authenticationEntryPoint(restServicesEntryPoint());
         http.authorizeRequests()
-                .antMatchers("/", "/api/login").permitAll()
+                .antMatchers("/api", "/api/login", "/api/register").permitAll()
+                .antMatchers("/").hasRole("ADMIN")
                 .anyRequest().authenticated()
-                .and().formLogin()
                 .and().csrf().disable();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class) // Xác thực trước
                 .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler());
