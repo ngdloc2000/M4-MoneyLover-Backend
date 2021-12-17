@@ -1,5 +1,6 @@
 package com.example.m4moneyloverbackend.controller;
 
+import com.example.m4moneyloverbackend.model.Role;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.env.Environment;
@@ -45,8 +46,8 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<User> saveUser(@RequestParam ("file") MultipartFile file, @RequestParam("newUser") String user) {
+    @PostMapping("/register")
+    public ResponseEntity<User> saveUser(@RequestParam("file") MultipartFile file, @RequestParam("newUser") String user) {
         String file1 = file.getOriginalFilename();
         try {
             User user1 = new ObjectMapper().readValue(user, User.class);
@@ -75,11 +76,5 @@ public class UserController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User currentUser = userService.findByUsername(user.getUsername()).get();
         return ResponseEntity.ok(new JwtResponse(currentUser.getId(), jwt, userDetails.getUsername(), userDetails.getAuthorities()));
-    }
-
-
-    @GetMapping("/hello")
-    public ResponseEntity<String> hello() {
-        return new ResponseEntity<>("Hello World", HttpStatus.OK);
     }
 }
