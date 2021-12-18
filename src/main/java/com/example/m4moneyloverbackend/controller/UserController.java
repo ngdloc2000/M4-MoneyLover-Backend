@@ -22,7 +22,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -49,6 +51,7 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<User> saveUser(@RequestParam("file") MultipartFile file, @RequestParam("newUser") String user) {
         String file1 = file.getOriginalFilename();
+        Role role = null;
         try {
             User user1 = new ObjectMapper().readValue(user, User.class);
             user1.setAvatar(file1);
@@ -76,5 +79,11 @@ public class UserController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User currentUser = userService.findByUsername(user.getUsername()).get();
         return ResponseEntity.ok(new JwtResponse(currentUser.getId(), jwt, userDetails.getUsername(), userDetails.getAuthorities()));
+    }
+
+    @GetMapping("/info/{id}")
+    public ResponseEntity<User> findUserById(@PathVariable Long id) {
+        Optional<User> userOptional = userService.findById(id);
+        return new ResponseEntity<>(userOptional.get(), HttpStatus.OK);
     }
 }

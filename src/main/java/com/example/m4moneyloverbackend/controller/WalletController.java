@@ -15,9 +15,16 @@ import java.util.Optional;
 public class WalletController {
     @Autowired
     private IWalletService walletService;
+
     @GetMapping("/list")
     public ResponseEntity<Iterable<Wallet>>listWallet(){
         return new ResponseEntity<>(walletService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/walletByUserId/{id}")
+    public ResponseEntity<Wallet> findWalletByUserId(@PathVariable Long id) {
+        Optional<Wallet> wallet = walletService.findByUserId(id);
+        return new ResponseEntity<>(wallet.get(), HttpStatus.OK);
     }
 }
 
