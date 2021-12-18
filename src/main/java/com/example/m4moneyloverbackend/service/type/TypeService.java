@@ -31,4 +31,9 @@ public class TypeService implements ITypeService{
     public Optional<Type> findById(Long id) {
         return typeRepository.findById(id);
     }
+
+    @Override
+    public Iterable<Type> findAllTypeByCategory(Long categoryId) {
+        return typeRepository.findAllTypeByCategory(categoryId);
+    }
 }
