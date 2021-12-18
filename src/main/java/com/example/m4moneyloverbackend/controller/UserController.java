@@ -86,4 +86,30 @@ public class UserController {
         Optional<User> userOptional = userService.findById(id);
         return new ResponseEntity<>(userOptional.get(), HttpStatus.OK);
     }
+
+    @PutMapping("/info/{id}")
+    public ResponseEntity<User> update(@PathVariable Long id,@RequestPart("file")MultipartFile file,@RequestPart ("newUser") String user){
+        Optional<User> customerOptional = userService.findById(id);
+        if (!customerOptional.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else {
+            MultipartFile multipartFile = file;
+            String file1 = multipartFile.getOriginalFilename();
+            try {
+                User user1 = new ObjectMapper().readValue(user,User.class);
+                user1.setId(customerOptional.get().getId());
+                user1.setAvatar(file1);
+                userService.save(user1);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            String fileUpLoad = env.getProperty("upload.path");
+            try {
+                FileCopyUtils.copy(multipartFile.getBytes(),new File(fileUpLoad + file1));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }
 }

@@ -34,4 +34,8 @@ public class User {
     public void addRole(Role role){
         this.roles.add(role);
     }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
+    }
 }
