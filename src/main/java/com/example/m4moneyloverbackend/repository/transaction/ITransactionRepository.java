@@ -16,4 +16,7 @@ public interface ITransactionRepository extends JpaRepository<Transaction ,Long>
     Iterable<Transaction> findAllByWallet(@Param("id") Long walletId);
 
     Iterable<Transaction> findAllByDate(Date date);
+
+    @Query(value = "select sum(amount) from transaction join transactiondetail t on transaction.id = t.transaction_id join type t2 on t2.id = t.type_id join category c on c.id = t2.category_id where c.id = :id", nativeQuery = true)
+    Double sumAmountByCategory(@Param("id") Long categoryId);
 }

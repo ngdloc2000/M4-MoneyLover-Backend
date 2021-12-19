@@ -50,4 +50,9 @@ public class TransactionService implements ITransactionService {
     public Iterable<Transaction> findAllByDate(Date date) {
         return transactionRepository.findAllByDate(date);
     }
+
+    @Override
+    public Double sumAmountByCategory(Long categoryId) {
+        return transactionRepository.sumAmountByCategory(categoryId);
+    }
 }

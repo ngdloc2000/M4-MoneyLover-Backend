@@ -12,4 +12,5 @@ public interface ITransactionService extends IGeneralService <Transaction>{
     Iterable<Transaction> findAllByWallet(Long walletId);
     Page<Transaction> findAll(Pageable pageable);
     Iterable<Transaction> findAllByDate(Date date);
+    Double sumAmountByCategory(Long categoryId);
 }

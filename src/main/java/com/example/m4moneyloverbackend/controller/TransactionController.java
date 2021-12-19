@@ -99,4 +99,9 @@ public class TransactionController {
     public ResponseEntity<Iterable<Transaction>> findAllByDate(@PathVariable Date dateTime) {
             return new ResponseEntity<>(transactionService.findAllByDate(dateTime), HttpStatus.OK);
         }
+
+        @GetMapping("/sum/{id}")
+    public ResponseEntity<Double> sumAmount(@PathVariable Long id) {
+        return new ResponseEntity<>(transactionService.sumAmountByCategory(id), HttpStatus.OK);
+        }
 }
