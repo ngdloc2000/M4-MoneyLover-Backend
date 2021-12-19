@@ -13,7 +13,6 @@ import java.util.Optional;
 @CrossOrigin("*")
 @RequestMapping("/transactionDetails")
 public class TransactionDetailController {
-
     @Autowired
     private ITransactionDetailService transactionDetailService;
 
