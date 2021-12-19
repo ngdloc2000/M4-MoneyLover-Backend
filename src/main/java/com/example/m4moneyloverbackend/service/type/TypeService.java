@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+
 @Service
-public class TypeService implements ITypeService{
-
-
+public class TypeService implements ITypeService {
     @Autowired
     private ITypeRepository typeRepository;
+
     @Override
     public Type save(Type type) {
         return typeRepository.save(type);
@@ -33,7 +33,7 @@ public class TypeService implements ITypeService{
     }
 
     @Override
-    public Iterable<Type> findAllTypeByCategory(Long categoryId) {
-        return typeRepository.findAllTypeByCategory(categoryId);
+    public Iterable<Type> findAllByCategory_Id(Long cateId) {
+        return typeRepository.findAllByCategory_Id(cateId);
     }
 }

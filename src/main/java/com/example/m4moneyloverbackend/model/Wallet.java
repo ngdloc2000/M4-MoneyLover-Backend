@@ -22,10 +22,4 @@ public class Wallet {
     private double balance = 0.0;
     @OneToOne
     private User user;
-    @OneToMany(targetEntity = Transaction.class, mappedBy = "wallet")
-//    @JsonBackReference
-    @JsonIgnore
-    private List<Transaction> transactionList;
-
-
 }

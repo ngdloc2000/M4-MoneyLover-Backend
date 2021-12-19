@@ -31,11 +31,4 @@ public class User {
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Collection<Role> roles;
-    public void addRole(Role role){
-        this.roles.add(role);
-    }
-
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
-    }
 }

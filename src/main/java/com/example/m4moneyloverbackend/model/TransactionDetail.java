@@ -5,20 +5,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "catetype")
-public class CateType {
+@Table(name = "transactiondetail")
+public class TransactionDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(targetEntity = Category.class)
-    @JoinColumn(name = "category_id")
-    private Category category;
-    @ManyToOne(targetEntity = Type.class)
-    @JoinColumn(name = "type_id")
+    @OneToOne
+    private Transaction transaction;
+    @OneToOne
     private Type type;
 }

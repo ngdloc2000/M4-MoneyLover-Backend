@@ -20,8 +20,6 @@ public class Type {
     private Long id;
     private String name;
     private String icon;
-    @OneToMany(mappedBy = "type", targetEntity = CateType.class)
-//    @JsonBackReference
-    @JsonIgnore
-    private List<CateType> cateTypes;
+    @OneToOne
+    private Category category;
 }

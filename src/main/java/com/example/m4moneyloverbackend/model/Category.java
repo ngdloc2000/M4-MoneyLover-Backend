@@ -21,14 +21,11 @@ public class Category {
     private String name;
     private String icon;
 
-    @OneToMany(targetEntity = Transaction.class, mappedBy = "category")
-//    @JsonBackReference
-    @JsonIgnore
-    private List<Transaction> transactionList;
+//    @OneToMany(targetEntity = Transaction.class, mappedBy = "category")
+//    @JsonIgnore
+//    private List<Transaction> transactionList;
 
-    @OneToMany(mappedBy = "category", targetEntity = CateType.class)
-//    @JsonBackReference
-    @JsonIgnore
-    private List<CateType> cateTypes;
-    
+//    @OneToMany(mappedBy = "category", targetEntity = CateType.class)
+//    @JsonIgnore
+//    private List<CateType> cateTypes;
 }

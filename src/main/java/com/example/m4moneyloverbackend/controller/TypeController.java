@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -43,5 +44,11 @@ public class TypeController {
     public ResponseEntity<Type> deleteType(@PathVariable Long id) {
         typeService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/findAllTypeByCategory/{id}")
+    public ResponseEntity<Iterable<Type>> findAllTypeByCategory(@PathVariable Long id) {
+        List<Type> types = (List<Type>) typeService.findAllByCategory_Id(id);
+        return new ResponseEntity<>(types, HttpStatus.OK);
     }
 }

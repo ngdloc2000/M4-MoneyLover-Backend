@@ -10,6 +10,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ITypeRepository extends JpaRepository<Type, Long> {
-    @Query(value = "select t.* from type t join catetype c on t.id = c.type_id join category c2 on c2.id = c.category_id where c2.id = :id;",nativeQuery = true)
-    Iterable<Type> findAllTypeByCategory(@Param("id") Long categoryId);
+    Iterable<Type> findAllByCategory_Id(Long cateId);
 }

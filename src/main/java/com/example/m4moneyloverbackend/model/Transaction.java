@@ -25,9 +25,4 @@ public class Transaction {
     @ManyToOne(targetEntity = Wallet.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "wallet_id")
     private Wallet wallet;
-    @ManyToOne(targetEntity = Category.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "category_id")
-    private Category category;
-
-
 }
