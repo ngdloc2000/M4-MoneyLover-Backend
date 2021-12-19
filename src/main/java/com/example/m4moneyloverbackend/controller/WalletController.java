@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+
 @CrossOrigin("*")
 @Controller
 @RequestMapping("/wallets")
@@ -17,7 +18,7 @@ public class WalletController {
     private IWalletService walletService;
 
     @GetMapping("/list")
-    public ResponseEntity<Iterable<Wallet>>listWallet(){
+    public ResponseEntity<Iterable<Wallet>> listWallet() {
         return new ResponseEntity<>(walletService.findAll(), HttpStatus.OK);
     }
 
@@ -26,8 +27,20 @@ public class WalletController {
         Optional<Wallet> wallet = walletService.findByUserId(id);
         return new ResponseEntity<>(wallet.get(), HttpStatus.OK);
     }
+
+    @PutMapping("/decreaseBalance/{userId}/{amount}")
+    public ResponseEntity<Wallet> decreaseBalance(@PathVariable Long userId, @PathVariable String amount) {
+        Optional<Wallet> wallet = walletService.findByUserId(userId);
+        wallet.get().setBalance(wallet.get().getBalance() - Double.parseDouble(amount));
+        walletService.save(wallet.get());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/increaseBalance/{userId}/{amount}")
+    public ResponseEntity<Wallet> increaseBalance(@PathVariable Long userId, @PathVariable String amount) {
+        Optional<Wallet> wallet = walletService.findByUserId(userId);
+        wallet.get().setBalance(wallet.get().getBalance() + Double.parseDouble(amount));
+        walletService.save(wallet.get());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
-
-
-
-
