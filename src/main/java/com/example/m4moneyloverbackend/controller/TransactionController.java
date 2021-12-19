@@ -26,7 +26,7 @@ import java.util.Optional;
 @RequestMapping("/transactions")
 public class TransactionController {
     @Autowired
-   private Environment environment;
+   private Environment env;
     @Autowired
     private ITransactionService transactionService;
     @Autowired
@@ -42,23 +42,23 @@ public class TransactionController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Transaction> createTransaction(@RequestPart("file")MultipartFile file,@RequestPart("newTransaction") String transaction) {
-        MultipartFile multipartFile = file;
-        String file1=multipartFile.getOriginalFilename();
+    public ResponseEntity<Transaction> saveArtist(@RequestPart("file") MultipartFile file, @RequestPart("newTransaction") String transaction) {
+        String file1 = file.getOriginalFilename();
         try {
-            Transaction transaction1= new ObjectMapper().readValue(transaction,Transaction.class);
+            Transaction transaction1 = new ObjectMapper().readValue(transaction, Transaction.class);
             transaction1.setFile(file1);
             transactionService.save(transaction1);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        String fileUpload = environment.getProperty("upload.path");
+
+        String fileUpload = env.getProperty("upload.path");
         try {
-            FileCopyUtils.copy(multipartFile.getBytes(),new File(fileUpload+file));
+            FileCopyUtils.copy(file.getBytes(), new File(fileUpload + file1));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("")
@@ -82,5 +82,6 @@ public class TransactionController {
         Optional<Wallet> wallet = walletService.findByUserId(id);
         List<Transaction> transactions = (List<Transaction>) transactionService.findAllByWallet(wallet.get().getId());
         return new ResponseEntity<>(transactions,HttpStatus.OK);
-    }
+
+        }
 }

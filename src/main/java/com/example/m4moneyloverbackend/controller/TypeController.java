@@ -46,9 +46,11 @@ public class TypeController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+
     @GetMapping("/findAllTypeByCategory/{id}")
     public ResponseEntity<Iterable<Type>> findAllTypeByCategory(@PathVariable Long id) {
         List<Type> types = (List<Type>) typeService.findAllByCategory_Id(id);
         return new ResponseEntity<>(types, HttpStatus.OK);
     }
+
 }
