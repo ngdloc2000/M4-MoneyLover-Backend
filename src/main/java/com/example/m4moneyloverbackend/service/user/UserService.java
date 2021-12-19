@@ -28,11 +28,9 @@ public class UserService implements IUserService {
         Wallet wallet = new Wallet();
         wallet.setBalance(0.0);
         wallet.setName("Ví của " + user.getName());
-//        user.addRole(new Role(2L));
         User newUser = userRepository.save(user);
         wallet.setUser(newUser);
         walletService.save(wallet);
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return newUser;
     }
 

@@ -65,6 +65,7 @@ public class UserController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

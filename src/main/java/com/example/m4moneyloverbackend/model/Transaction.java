@@ -19,10 +19,17 @@ public class Transaction {
     private Long id;
     private String name;
     private double amount;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", locale = "vi_VN", timezone = "Asia/Ho_Chi_Minh")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", locale = "vi_VN", timezone = "Asia/Ho_Chi_Minh")
     private Date date;
     private String file;
     @ManyToOne(targetEntity = Wallet.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "wallet_id")
     private Wallet wallet;
+
+    public Transaction(String name, double amount, Date date, Wallet wallet) {
+        this.name = name;
+        this.amount = amount;
+        this.date = date;
+        this.wallet = wallet;
+    }
 }

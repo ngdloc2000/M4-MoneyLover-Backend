@@ -42,12 +42,13 @@ public class TransactionController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Transaction> saveArtist(@RequestPart("file") MultipartFile file, @RequestPart("newTransaction") String transaction) {
+    public ResponseEntity<Transaction> saveTransaction(@RequestPart("file") MultipartFile file, @RequestPart("newTransaction") String transaction) {
         String file1 = file.getOriginalFilename();
         try {
             Transaction transaction1 = new ObjectMapper().readValue(transaction, Transaction.class);
             transaction1.setFile(file1);
             transactionService.save(transaction1);
+            return new ResponseEntity<>(transaction1,HttpStatus.CREATED);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -58,8 +59,8 @@ public class TransactionController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
+
+        return new ResponseEntity<>(HttpStatus.OK);    }
 
     @GetMapping("")
     public ResponseEntity<Iterable<Transaction>> showAll() {
