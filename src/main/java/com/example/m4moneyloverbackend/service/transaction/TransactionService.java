@@ -3,8 +3,12 @@ package com.example.m4moneyloverbackend.service.transaction;
 import com.example.m4moneyloverbackend.model.Transaction;
 import com.example.m4moneyloverbackend.repository.transaction.ITransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.xml.crypto.Data;
+import java.sql.Date;
 import java.util.Optional;
 
 @Service
@@ -35,5 +39,15 @@ public class TransactionService implements ITransactionService {
     @Override
     public Iterable<Transaction> findAllByWallet(Long walletId) {
         return transactionRepository.findAllByWallet(walletId);
+    }
+
+    @Override
+    public Page<Transaction> findAll(Pageable pageable) {
+        return transactionRepository.findAll(pageable);
+    }
+
+    @Override
+    public Iterable<Transaction> findAllByDate(Date date) {
+        return transactionRepository.findAllByDate(date);
     }
 }

@@ -10,6 +10,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
@@ -18,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -83,6 +88,15 @@ public class TransactionController {
         Optional<Wallet> wallet = walletService.findByUserId(id);
         List<Transaction> transactions = (List<Transaction>) transactionService.findAllByWallet(wallet.get().getId());
         return new ResponseEntity<>(transactions,HttpStatus.OK);
+        }
 
+        @GetMapping("/findAll")
+    public ResponseEntity<Page<Transaction>> findAll(@PageableDefault(value = 7) Pageable pageable) {
+        return new ResponseEntity<>(transactionService.findAll(pageable), HttpStatus.OK);
+        }
+
+        @GetMapping("/findDate/{dateTime}")
+    public ResponseEntity<Iterable<Transaction>> findAllByDate(@PathVariable Date dateTime) {
+            return new ResponseEntity<>(transactionService.findAllByDate(dateTime), HttpStatus.OK);
         }
 }
