@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
+import java.util.Map;
 
 @Repository
 public interface ITransactionRepository extends JpaRepository<Transaction ,Long> {
@@ -19,4 +20,9 @@ public interface ITransactionRepository extends JpaRepository<Transaction ,Long>
 
     @Query(value = "select sum(amount) from transaction t join transactiondetail t2 on t.id = t2.transaction_id join type t3 on t3.id = t2.type_id join category c on c.id = t3.category_id where t.wallet_id = :wallet and c.id = :cate", nativeQuery = true)
     Double sumAmountByCategory(@Param("wallet") Long walletId, @Param("cate") Long cateId);
+
+    @Query(value = "select sum(amount) from transaction t join transactiondetail t2 on t.id = t2.transaction_id join type t3 on t3.id = t2.type_id join category c on c.id = t3.category_id where t.date = :date and c.id=:id", nativeQuery = true)
+         Double findAllTransactionAndSumAmountByDate(@Param("date") Date date,@Param("id")Long id);
+
+
 }

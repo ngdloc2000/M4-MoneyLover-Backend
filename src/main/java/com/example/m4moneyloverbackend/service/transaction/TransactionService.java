@@ -17,6 +17,11 @@ public class TransactionService implements ITransactionService {
     private ITransactionRepository transactionRepository;
 
     @Override
+    public Double findAllTransactionAndSumAmountByDate(Date date,Long id) {
+        return transactionRepository.findAllTransactionAndSumAmountByDate(date,id);
+    }
+
+    @Override
     public Transaction save(Transaction transaction) {
         return transactionRepository.save(transaction);
     }
