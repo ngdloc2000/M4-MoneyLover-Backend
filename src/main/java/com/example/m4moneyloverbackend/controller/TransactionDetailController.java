@@ -1,7 +1,9 @@
 package com.example.m4moneyloverbackend.controller;
 
 import com.example.m4moneyloverbackend.model.TransactionDetail;
+import com.example.m4moneyloverbackend.model.Wallet;
 import com.example.m4moneyloverbackend.service.transactionDetail.ITransactionDetailService;
+import com.example.m4moneyloverbackend.service.wallet.IWalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,25 @@ import java.util.Optional;
 public class TransactionDetailController {
     @Autowired
     private ITransactionDetailService transactionDetailService;
+
+    @Autowired
+    private IWalletService walletService;
+
+    @PutMapping("/decreaseBalance/{userId}/{amount}")
+    public ResponseEntity<Wallet> decreaseBalance(@PathVariable Long userId, @PathVariable String amount) {
+        Optional<Wallet> wallet = walletService.findByUserId(userId);
+        wallet.get().setBalance(wallet.get().getBalance() - Double.parseDouble(amount));
+        walletService.save(wallet.get());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/increaseBalance/{userId}/{amount}")
+    public ResponseEntity<Wallet> increaseBalance(@PathVariable Long userId, @PathVariable String amount) {
+        Optional<Wallet> wallet = walletService.findByUserId(userId);
+        wallet.get().setBalance(wallet.get().getBalance() + Double.parseDouble(amount));
+        walletService.save(wallet.get());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     @GetMapping("")
     public ResponseEntity<Iterable<TransactionDetail>> findAll() {

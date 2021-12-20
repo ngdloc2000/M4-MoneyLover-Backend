@@ -52,7 +52,7 @@ public class TransactionService implements ITransactionService {
     }
 
     @Override
-    public Double sumAmountByCategory(Long categoryId) {
-        return transactionRepository.sumAmountByCategory(categoryId);
+    public Double sumAmountByCategory(Long walletId, Long categoryId) {
+        return transactionRepository.sumAmountByCategory(walletId, categoryId);
     }
 }

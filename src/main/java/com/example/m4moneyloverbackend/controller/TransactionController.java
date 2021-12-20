@@ -1,12 +1,10 @@
 package com.example.m4moneyloverbackend.controller;
 
 import com.example.m4moneyloverbackend.model.Transaction;
-import com.example.m4moneyloverbackend.model.User;
 import com.example.m4moneyloverbackend.model.Wallet;
 import com.example.m4moneyloverbackend.service.transaction.ITransactionService;
 import com.example.m4moneyloverbackend.service.wallet.IWalletService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -22,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +28,7 @@ import java.util.Optional;
 @RequestMapping("/transactions")
 public class TransactionController {
     @Autowired
-   private Environment env;
+    private Environment env;
     @Autowired
     private ITransactionService transactionService;
     @Autowired
@@ -53,7 +50,7 @@ public class TransactionController {
             Transaction transaction1 = new ObjectMapper().readValue(transaction, Transaction.class);
             transaction1.setFile(file1);
             transactionService.save(transaction1);
-            return new ResponseEntity<>(transaction1,HttpStatus.CREATED);
+            return new ResponseEntity<>(transaction1, HttpStatus.CREATED);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -65,7 +62,8 @@ public class TransactionController {
             e.printStackTrace();
         }
 
-        return new ResponseEntity<>(HttpStatus.OK);    }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     @GetMapping("")
     public ResponseEntity<Iterable<Transaction>> showAll() {
@@ -87,21 +85,26 @@ public class TransactionController {
     public ResponseEntity<Iterable<Transaction>> findAllTransactionByWallet(@PathVariable Long id) {
         Optional<Wallet> wallet = walletService.findByUserId(id);
         List<Transaction> transactions = (List<Transaction>) transactionService.findAllByWallet(wallet.get().getId());
-        return new ResponseEntity<>(transactions,HttpStatus.OK);
-        }
+        return new ResponseEntity<>(transactions, HttpStatus.OK);
+    }
 
-        @GetMapping("/findAll")
+    @GetMapping("/findAll")
     public ResponseEntity<Page<Transaction>> findAll(@PageableDefault(value = 7) Pageable pageable) {
         return new ResponseEntity<>(transactionService.findAll(pageable), HttpStatus.OK);
-        }
+    }
 
-        @GetMapping("/findDate/{dateTime}")
+    @GetMapping("/findDate/{dateTime}")
     public ResponseEntity<Iterable<Transaction>> findAllByDate(@PathVariable Date dateTime) {
-            return new ResponseEntity<>(transactionService.findAllByDate(dateTime), HttpStatus.OK);
-        }
+        return new ResponseEntity<>(transactionService.findAllByDate(dateTime), HttpStatus.OK);
+    }
 
-        @GetMapping("/sum/{id}")
-    public ResponseEntity<Double> sumAmount(@PathVariable Long id) {
-        return new ResponseEntity<>(transactionService.sumAmountByCategory(id), HttpStatus.OK);
-        }
+    @GetMapping("/sumAmountByExpense/{walletId}")
+    public ResponseEntity<Double> sumAmountByExpense(@PathVariable Long walletId) {
+        return new ResponseEntity<>(transactionService.sumAmountByCategory(walletId, 1L), HttpStatus.OK);
+    }
+
+    @GetMapping("/sumAmountByIncome/{walletId}")
+    public ResponseEntity<Double> sumAmountByIncome(@PathVariable Long walletId) {
+        return new ResponseEntity<>(transactionService.sumAmountByCategory(walletId, 3L), HttpStatus.OK);
+    }
 }
