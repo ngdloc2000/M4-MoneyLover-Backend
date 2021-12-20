@@ -25,4 +25,10 @@ public interface ITransactionRepository extends JpaRepository<Transaction ,Long>
 
     @Query(value = "select DAY(t.date) as Day, SUM(t.amount) as Amount from transaction t join transactiondetail t2 on t.id = t2.transaction_id join type t3 on t3.id = t2.type_id join category c on c.id = t3.category_id where c.id = :cateId and t.wallet_id = :walletId and MONTH(t.date) = :month group by DAY(t.date) order by DAY(t.date), SUM(t.amount) asc", nativeQuery = true)
     List<SumAmountEachDayInMonth> sumAmountEachDayInMonth(@Param("cateId") Long cateId, @Param("walletId") Long walletId, @Param("month") String month);
+
+    @Query(value = "select sum(amount) from transaction t join transactiondetail t2 on t.id = t2.transaction_id join type t3 on t3.id = t2.type_id join category c on c.id = t3.category_id where t.date = :date and c.id=:id", nativeQuery = true)
+         Double findAllTransactionAndSumAmountByDate(@Param("date") Date date,@Param("id")Long id);
+
+    @Query(value = "select sum(amount) from transaction t join transactiondetail t2 on t.id = t2.transaction_id join type t3 on t3.id = t2.type_id join category c on c.id = t3.category_id where c.id = :id",nativeQuery = true)
+        Double findAllSumAmountByCategoryId(@Param("id") Long id);
 }

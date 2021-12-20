@@ -17,6 +17,12 @@ public interface ITransactionService extends IGeneralService<Transaction> {
     Iterable<Transaction> findAllByDate(Date date);
 
     Double sumAmountByCategory(Long walletId, Long categoryId);
+<<<<<<< HEAD
 
     List<SumAmountEachDayInMonth> sumAmountEachDayInMonth(Long cateId, Long walletId, String month);
+=======
+    Double findAllTransactionAndSumAmountByDate(Date date,Long id);
+    Double findAllSumAmountByCategoryId(Long id);
+
+>>>>>>> 0de41ce3a79290cf179d0e6215b49197ff5e543c
 }
