@@ -2,6 +2,7 @@ package com.example.m4moneyloverbackend.controller;
 
 import com.example.m4moneyloverbackend.model.Transaction;
 import com.example.m4moneyloverbackend.model.Wallet;
+import com.example.m4moneyloverbackend.model.dto.SumAmountEachDayInMonth;
 import com.example.m4moneyloverbackend.service.transaction.ITransactionService;
 import com.example.m4moneyloverbackend.service.wallet.IWalletService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -33,6 +34,11 @@ public class TransactionController {
     private ITransactionService transactionService;
     @Autowired
     private IWalletService walletService;
+
+    @GetMapping("/sumAmountEachDayInMonth/{cateId}/{walletId}/{month}")
+    public ResponseEntity<List<SumAmountEachDayInMonth>> sumAmountEachDayInMonth(@PathVariable Long cateId, @PathVariable Long walletId, @PathVariable String month) {
+        return new ResponseEntity<>(transactionService.sumAmountEachDayInMonth(cateId, walletId, month), HttpStatus.OK);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Transaction> findById(@PathVariable Long id) {

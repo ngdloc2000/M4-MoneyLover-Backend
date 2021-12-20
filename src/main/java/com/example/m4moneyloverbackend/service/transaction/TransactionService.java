@@ -1,6 +1,7 @@
 package com.example.m4moneyloverbackend.service.transaction;
 
 import com.example.m4moneyloverbackend.model.Transaction;
+import com.example.m4moneyloverbackend.model.dto.SumAmountEachDayInMonth;
 import com.example.m4moneyloverbackend.repository.transaction.ITransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.xml.crypto.Data;
 import java.sql.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -54,5 +56,10 @@ public class TransactionService implements ITransactionService {
     @Override
     public Double sumAmountByCategory(Long walletId, Long categoryId) {
         return transactionRepository.sumAmountByCategory(walletId, categoryId);
+    }
+
+    @Override
+    public List<SumAmountEachDayInMonth> sumAmountEachDayInMonth(Long cateId, Long walletId, String month) {
+        return transactionRepository.sumAmountEachDayInMonth(cateId, walletId, month);
     }
 }
