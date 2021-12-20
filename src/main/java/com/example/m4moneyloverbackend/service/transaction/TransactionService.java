@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.xml.crypto.Data;
 import java.sql.Date;
 import java.util.Optional;
 
@@ -15,6 +14,11 @@ import java.util.Optional;
 public class TransactionService implements ITransactionService {
     @Autowired
     private ITransactionRepository transactionRepository;
+
+    @Override
+    public Double findAllSumAmountByCategoryId(Long id) {
+        return transactionRepository.findAllSumAmountByCategoryId(id);
+    }
 
     @Override
     public Double findAllTransactionAndSumAmountByDate(Date date,Long id) {

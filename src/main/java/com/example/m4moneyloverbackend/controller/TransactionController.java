@@ -117,4 +117,10 @@ public class TransactionController {
         Double input = transactionService.findAllTransactionAndSumAmountByDate(dateTime, 3L);
         return new ResponseEntity<>(input,HttpStatus.OK);
     }
+    @GetMapping("/showAllSumAmountByCategoryId/{id}")
+    public ResponseEntity<Double> showAllSumAmountByCategoryId(@PathVariable Long id){
+        Double total = transactionService.findAllSumAmountByCategoryId(id);
+        return  new ResponseEntity<>(total,HttpStatus.OK);
+    }
+
 }

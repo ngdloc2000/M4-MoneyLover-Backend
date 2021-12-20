@@ -63,4 +63,5 @@ public class TransactionDetailController {
         transactionDetailService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }
