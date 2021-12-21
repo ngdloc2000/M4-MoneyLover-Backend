@@ -131,14 +131,10 @@ public class TransactionController {
         Double total = transactionService.findAllSumAmountByCategoryId(id);
         return new ResponseEntity<>(total, HttpStatus.OK);
     }
-<<<<<<< HEAD
 
     @GetMapping("/findTransactionsByCategoryId/{id}")
     public ResponseEntity<Iterable<Transaction>> findTransByCategory(@PathVariable Long id){
         return new ResponseEntity<>(transactionService.findTransactionsByCategoryId(id),HttpStatus.OK);
 
     }
-
-=======
->>>>>>> fecfc792e78ab873641cd20a644ce9b43f4edda5
 }
