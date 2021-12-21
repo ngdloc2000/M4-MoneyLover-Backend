@@ -113,21 +113,25 @@ public class TransactionController {
     public ResponseEntity<Double> sumAmountByIncome(@PathVariable Long walletId) {
         return new ResponseEntity<>(transactionService.sumAmountByCategory(walletId, 3L), HttpStatus.OK);
     }
+
     @GetMapping("/sumAmountExpenseByDate/{dateTime}")
-    public  ResponseEntity<Double> sumAmountExpenseByDate(@PathVariable Date dateTime){
+    public ResponseEntity<Double> sumAmountExpenseByDate(@PathVariable Date dateTime) {
         Double input = transactionService.findAllTransactionAndSumAmountByDate(dateTime, 1L);
-        return new ResponseEntity<>(input,HttpStatus.OK);
+        return new ResponseEntity<>(input, HttpStatus.OK);
     }
+
     @GetMapping("/sumAmountIncomeByDate/{dateTime}")
-    public  ResponseEntity<Double> sumAmountIncomeByDate(@PathVariable Date dateTime){
+    public ResponseEntity<Double> sumAmountIncomeByDate(@PathVariable Date dateTime) {
         Double input = transactionService.findAllTransactionAndSumAmountByDate(dateTime, 3L);
-        return new ResponseEntity<>(input,HttpStatus.OK);
+        return new ResponseEntity<>(input, HttpStatus.OK);
     }
+
     @GetMapping("/showAllSumAmountByCategoryId/{id}")
-    public ResponseEntity<Double> showAllSumAmountByCategoryId(@PathVariable Long id){
+    public ResponseEntity<Double> showAllSumAmountByCategoryId(@PathVariable Long id) {
         Double total = transactionService.findAllSumAmountByCategoryId(id);
-        return  new ResponseEntity<>(total,HttpStatus.OK);
+        return new ResponseEntity<>(total, HttpStatus.OK);
     }
+<<<<<<< HEAD
 
     @GetMapping("/findTransactionsByCategoryId/{id}")
     public ResponseEntity<Iterable<Transaction>> findTransByCategory(@PathVariable Long id){
@@ -135,4 +139,6 @@ public class TransactionController {
 
     }
 
+=======
+>>>>>>> fecfc792e78ab873641cd20a644ce9b43f4edda5
 }
