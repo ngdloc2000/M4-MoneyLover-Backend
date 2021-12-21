@@ -129,4 +129,10 @@ public class TransactionController {
         return  new ResponseEntity<>(total,HttpStatus.OK);
     }
 
+    @GetMapping("/findTransactionsByCategoryId/{id}")
+    public ResponseEntity<Iterable<Transaction>> findTransByCategory(@PathVariable Long id){
+        return new ResponseEntity<>(transactionService.findTransactionsByCategoryId(id),HttpStatus.OK);
+
+    }
+
 }
