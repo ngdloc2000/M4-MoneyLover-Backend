@@ -11,16 +11,13 @@ import java.util.List;
 
 public interface ITransactionService extends IGeneralService<Transaction> {
     Iterable<Transaction> findAllByWallet(Long walletId);
-
-    Page<Transaction> findAll(Pageable pageable);
-
     Iterable<Transaction> findAllByDate(Date date);
-
+    Page<Transaction> findAll(Pageable pageable);
     Double sumAmountByCategory(Long walletId, Long categoryId);
 
     List<SumAmountEachDayInMonth> sumAmountEachDayInMonth(Long cateId, Long walletId, String month);
 
-    Double findAllTransactionAndSumAmountByDate(Date date, Long id);
-
+    Double findAllTransactionAndSumAmountByDate(Date date,Long id);
     Double findAllSumAmountByCategoryId(Long id);
+    Iterable<Transaction> findTransactionsByCategoryId(Long id);
 }

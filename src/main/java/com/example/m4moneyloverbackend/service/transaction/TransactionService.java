@@ -23,8 +23,13 @@ public class TransactionService implements ITransactionService {
     }
 
     @Override
+    public Iterable<Transaction> findTransactionsByCategoryId(Long id) {
+        return transactionRepository.findTransactionsByCategoryId(id);
+    }
+
+    @Override
     public Double findAllTransactionAndSumAmountByDate(Date date,Long id) {
-        return transactionRepository.findAllTransactionAndSumAmountByDate(date,id);
+        return transactionRepository.findAllTransactionAndSumAmountByDate(date, id);
     }
 
     @Override
