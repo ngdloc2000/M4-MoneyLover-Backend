@@ -1,6 +1,5 @@
 package com.example.m4moneyloverbackend.service.user;
 
-import com.example.m4moneyloverbackend.model.Role;
 import com.example.m4moneyloverbackend.model.User;
 import com.example.m4moneyloverbackend.model.UserPrinciple;
 import com.example.m4moneyloverbackend.model.Wallet;
